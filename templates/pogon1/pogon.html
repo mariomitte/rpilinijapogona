@@ -1,0 +1,174 @@
+{% extends 'pogon1/min/base.html' %}
+
+{% load staticfiles svg %}
+
+{% block title %}{{ user.username }} Linija pogona{% endblock title %}
+
+{% block sadrzaj %}
+
+<div class="content-fix-padding">
+  <!-- Page content 1 -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+              Korisnik
+          </div>
+          <div class="panel-body">
+            <h4>Ime: {{ user }}</h4>
+            <h4>Korisnika: {{ korisnika_aktivno }}</h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+              Signali
+          </div>
+          <div class="panel-body">
+            <div class="col-md-2 col-xs-2 col-sm-2 placeholder text-center">
+              <div id="signali-lijevo" class="img-responsive">{% svg 'SUN' %}</div>
+              <h4>Lijevo</h4>
+            </div>
+            <div class="col-md-2 col-xs-2 col-sm-2 placeholder text-center">
+              <div id="signali-desno" class="img-responsive">{% svg 'SUN' %}</div>
+              <h4>Desno</h4>
+            </div>
+            <div class="col-md-2 col-xs-2 col-sm-2 placeholder text-center">
+              <div id="signali-brze" class="img-responsive">{% svg 'SUN' %}</div>
+              <h4>Brže</h4>
+            </div>
+            <div class="col-md-2 col-xs-2 col-sm-2 placeholder text-center">
+              <div id="signali-sporije" class="img-responsive">{% svg 'SUN' %}</div>
+              <h4>Sporije</h4>
+            </div>
+            <div class="col-md-2 col-xs-2 col-sm-2 placeholder text-center">
+              <div id="signali-pauza" class="img-responsive">{% svg 'SUN' %}</div>
+              <h4>Pauza</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /#page-content-wrapper -->
+
+  <!-- Page content 2 -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+
+            <form action="{% url 'pogon1:pogon' %}" method="POST">{% csrf_token %}
+            <table>
+              <tr><td style="padding-right:4px;">Upravljanje modelima: </td>
+                <td style="padding-right:10px;">
+                  <select name="dropdown1">
+                    {% if object_list %}
+                      {% for object in object_list %}
+                      <option  value="{{ object.kod }}">{{ object.kod }}</option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                </td>
+                <td><input class="btn btn-default" type="submit" value="Upravljaj" /></td>
+              </tr>
+            </table>
+
+
+          </div>
+          <div class="panel-body">
+            <div class="container-fluid">
+              <div class="col-md-3 col-xs-3 col-sm-3 kamera"></div>
+               <a class="col-md-3 col-xs-3 col-sm-3 kamera btn btn-default btn-mv" style="transform: rotate(270deg);"><object onclick="fwd();">{% svg 'ARROW' %}</object></a>
+              <div class="col-md-3 col-xs-3 col-sm-3 kamera"></div>
+              <a class="col-md-3 col-xs-3 col-sm-3 kamera btn btn-default btn-mv"><object onclick="stop_linija();">{% svg 'POWER' %}</object></a>
+            </div>
+
+            <div class="container-fluid">
+              <a class="col-md-3 col-xs-3 col-sm-3 kamera btn btn-default btn-mv" style="transform: rotate(180deg);"><object onclick="lijevo();">{% svg 'ARROW' %}</object></a>
+              <a class="col-md-3 col-xs-3 col-sm-3 kamera btn btn-default btn-mv stop"><object onclick="pauziraj();">{% svg 'PAUSE' %}</object></a>
+              <a class="col-md-3 col-xs-3 col-sm-3 kamera btn btn-default btn-mv" style="transform: rotate(0deg);"><object onclick="desno();">{% svg 'ARROW' %}</object></a>
+              <!-- s -->
+              <!-- image trigger modal -->
+              <a data-target="#myModal" data-toggle="modal" role="button" class="col-md-3 col-xs-3 col-sm-3 kamera btn btn-default btn-mv">{% svg 'SETTINGS' %}</a>
+              <!-- Modal HTML -->
+               <div id="myModal" class="modal fade">
+                   <div class="modal-dialog">
+                       <div class="modal-content">
+                           <div class="modal-header">
+                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                               <h4 class="modal-title">Odabir modela za upravljanje</h4>
+                           </div>
+                           <div class="modal-body">
+
+
+                             <form>
+                              <div class="form-group">
+                                <label for="sel1">Select list (select one):</label>
+                                <select class="form-control" id="sel1">
+                                  {% if object_list %}
+                                    {% for object in object_list %}
+                                    <option>{{ object.title }}</option>
+                                    {% endfor %}
+                                  {% endif %}
+                                </select>
+                                <br>
+                                <label for="sel2">Mutiple select list (hold shift to select more than one):</label>
+                                <select multiple class="form-control" id="sel2">
+                                  {% if object_list %}
+                                    {% for object in object_list %}
+                                    <option>{{ object.title }}</option>
+                                    {% endfor %}
+                                  {% endif %}
+                                </select>
+                              </div>
+                            </form>
+
+
+                           </div>
+                           <div class="modal-footer">
+                               <button type="button" class="btn btn-primary" data-dismiss="modal">Zatvori</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+             <!-- s -->
+            </div>
+
+            <div class="container-fluid">
+              <div class="col-md-3 col-xs-3 col-sm-3 kamera"></div>
+              <a class="col-md-3 col-xs-3 col-sm-3 kamera btn btn-default btn-mv" style="transform: rotate(90deg);"><object onclick="bwd();">{% svg 'ARROW' %}</object></a>
+              <div class="col-md-3 col-xs-3 col-sm-3 kamera"></div>
+              <a class="col-md-3 col-xs-3 col-sm-3 kamera btn btn-default btn-mv"><object onclick="send_mail();">{% svg 'MAIL' %}</object></a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+              Kamera
+          </div>
+          <div class="panel-body">
+            <a class="col-md-9 col-xs-3 col-sm-3 kamera start btn btn-default btn-mv"><object onclick="record();">{% svg 'PLAY' %}</object></a>
+            <a class="col-md-9 col-xs-3 col-sm-3 kamera start btn btn-default btn-mv stop"><object onclick="stop_record();">{% svg 'STOP' %}</object></a>
+            <a class="col-md-9 col-xs-3 col-sm-3 kamera uslikaj btn btn-default btn-mv"><object onclick="take_photo();">{% svg 'CAMERA' %}</object></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /#page-content-wrapper -->
+
+  <!-- ******KAMERA****** -->
+  {% include "pogon1/kamera.html" %}
+
+
+</div><!-- /#content-fix-padding -->
+
+<script src="{% static 'js/custom.js' %}"></script>
+
+{% endblock sadrzaj %}

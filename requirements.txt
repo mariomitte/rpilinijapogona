@@ -1,0 +1,12 @@
+Django
+django-inline-svg
+djangorestframework
+picamera
+gunicorn
+django-leaflet-storage
+Pillow
+psycopg2
+requests==2.13.0
+django-leaflet
+django-geojson
+jsonfield

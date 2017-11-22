@@ -1,0 +1,33 @@
+{% load staticfiles svg %}
+
+<!-- MENU -->
+<div id="sidebar-wrapper">
+  <nav id="sidebar-left">
+    <ul class="sidebar-nav nav">
+        <div class="container-fluid svg-sidebar">
+          <object>{% svg 'electronics' %}</object>
+        </div>
+        <li class="active nav-item"><a href="{% url 'pogon1:pogon' %}">
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span>    Linija pogona</a></li>
+        <li class="nav-item"><a href="{% url 'pogon1:dokumentacija' %}">
+          <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>    O aplikaciji</a></li>
+        {% if user.is_authenticated %}
+        <li class="nav-item"><a href="{% url 'pogon1:odjava' %}">
+          <span class="glyphicon glyphicon-off" aria-hidden="true"></span>    {{ user }}</a></li>
+        {% else %}
+        <li class="nav-item"><a href="{% url 'pogon1:prijava' %}">
+          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>    Prijavi se</a></li>
+        {% endif %}
+        <li>
+          <span>mbed LPC1768</span> | <span>RPi3</span>
+        </li>
+        <li>
+          <span>Django Framework</span> | <span>Telegram</span>
+        </li>
+        <li>
+          <span>&copy; Mario Mitte</span>
+        </li>
+    </ul>
+  </nav>
+</div>
+<!-- END MENU -->

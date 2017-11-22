@@ -1,0 +1,75 @@
+{% extends 'pogon1/min/base.html' %}
+
+{% load staticfiles svg %}
+
+{% block title %}Dokumentacija{% endblock %}
+
+{% block sadrzaj %}
+
+<div class="content-fix-padding">
+  <div class="container-fluid">
+    <div class="row">
+      <h3>PROJEKT</h3>
+      <h4 class="fix">Osnovne cjeline od kojih se sastoji projekt su mbed MCU razvojna pločica, RPi model 3 i Adafruit Motor SHield  v1.0. Ideja je upravljanje na daljinu sa pojedinim dijelovima "Linije pogona" i unos parametara ručno, npr. PWM širina i period. Središnji dio projekta je RPi model 3 na kojemu se nalazi Django - Python Web Framework, poslužitelj web stranice i Upravljačka stranica iz koje se može ručno upravljati linijom pogona. Linijom se upravlja pritiskom na nekoliko tipki iz Upravljačke stranice a čija je interakcija popraćena sa signalnim lampicama na Upravljačkoj stranici. Tipke kreiraju "Http GET request" do servera, a zatim server odgovara upravljačkim signalima prema RPI.GPIO I2C vezom sa mbed MCU razvojnom pločicom koja izravno upravlja izvršnim elementima linije pogona uz pomoć Adafruit MotorShield drivera kao što su DC motor, steper koračni motor, steper unipolarni motor i aktiviranje video streama, uslikavanje radnog dokumenta te čitanje šifre radnog naloga nakon toga i pokretanje ciklusa linije iz memorije mbed MCU razvojne pločice.</h4>
+      <div class="col-md-8 placeholder">
+        <div class="img-responsive">{% svg 'PROJEKT' %}</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /#content-fix-padding -->
+
+<div class="content-fix-padding">
+  <div class="container-fluid">
+    <div class="row">
+      <h3>UPRAVLJAČKA PLOČA</h3>
+      <h4 class="fix">Izgled upravljačke ploče kojom se upravlja linijom pogona</h4>
+      <div class="col-md-10 placeholder">
+        <div id="signali-stol" class="img-responsive">{% svg 'UPRAVLJACKAPLOCA' %}</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /#content-fix-padding -->
+
+<div class="content-fix-padding">
+  <div class="container-fluid">
+    <div class="row">
+      <h4 class="fix">Pritiskom na tipke aktivira se JavaScript Http GET zahtjev u formatu "?cmd=stop"</h4>
+      <h4 class="fix">Django sustav obradi zahtjev na način da će View.py primiti Http zahtjev i raščlaniti ga u cilju da otkrije "cmd", a prema njegovom sadržaju će se izvršiti naredbe upravljanja linijom pogona. Pritiskom na tipku stop View.py će primiti "?cmd=stop" a izvršiti stop svih motora linije pogona, tj. poslati će na mbed zahtjev za zaustavljanjem svih.</h4>
+    </div>
+  </div>
+</div><!-- /#content-fix-padding -->
+
+<div class="content-fix-padding">
+  <div class="container-fluid">
+    <div class="row">
+      <h3>STRUKTURA DATOTEKA</h3>
+      <div class="col-md-3 col-xs-6 placeholder">
+        <div class="img-responsive">{% svg 'STRUKTURADATOTEKA' %}</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /#content-fix-padding -->
+
+<div class="content-fix-padding">
+  <div class="container-fluid">
+    <div class="row">
+      <h4 class="fix">Osnovna struktura sastoji se od dijela koji pripada klijentu i dijela koji pripada serveru</h4>
+      <h4 class="fix">Značajne su slijedeće datoteke: config - u kojoj se uređuje vrsta baze podataka, lokacija Template datoteke, URL mapiranja, itd., i datoteka pogon - aplikacija za liniju, tu je još i datoteka api - implementacija Django REST Framework-a</h4>
+      <h4 class="fix">Python izvršne skripte camera_network.py i mbedI2C.py imaju ulogu implementiranja rada sa kamera modulom i RPI.GPIO pinovima.</h4>
+    </div>
+  </div>
+</div><!-- /#content-fix-padding -->
+
+<div class="content-fix-padding">
+  <div class="container-fluid">
+    <div class="row">
+      <h3>INSTALACIJA</h3>
+      <h4 class="fix">Dostupna je instalacijska skripta "postavi.h". Za detalje pročitati <a href="https://github.com/mariomitte/final-linija" target="_blank">README.md</a></h4>
+      <div class="col-md-10 placeholder">
+        <div id="signali-stol" class="img-responsive">{% svg 'INSTALACIJA' %}</div>
+      </div>
+    </div>
+  </div>
+</div><!-- /#content-fix-padding -->
+
+{% endblock sadrzaj %}

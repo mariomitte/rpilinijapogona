@@ -1,0 +1,57 @@
+{% extends 'pogon1/min/base.html' %}
+
+{% block sadrzaj %}
+
+<h1><a href="{% url 'pogon1:list' %}">{{ title }}</a> |
+<a href="{% url 'pogon1:create' %}">Izradi objekt</a>
+</h1>
+
+<div class="container" style="padding:20px;">
+  <form method='GET' action=''>
+    <input type='text' name='q' placeholder='Pretrazi upravljanje' />
+    <input type='submit' value='Trazi' />
+  </form>
+</div>
+
+<div class="row">
+
+  {% if object_list %}
+  <div class="table">
+      <table class="table table-hover">
+          <thead class="table-default">
+              <tr>
+                  <th>Naziv</th>
+                  <th>Kreirao</th>
+                  <th>Obnovljen</th>
+                  <th>Kod</th>
+                  <th>Model</th>
+                  <th>Extra</th>
+                  <th>Slika</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for object in object_list %}
+            <tr>
+                <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+                <td>{{ object.korisnik }}</td>
+                <td>{{ object.updated }}</td>
+                <td><small>{{ object.kod }}</small></td>
+                <td><small>{{ object.model }}</small></td>
+                <td><small>{{ object.extra }}</small></td>
+                {% if object.image %}
+                <td><a href="{{ object.image.url }}">{{ object.image.name }}</a></td>
+                {% else %}
+                <td></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+  </div>
+  {% endif %}
+
+
+</div>
+
+
+{% endblock sadrzaj %}
