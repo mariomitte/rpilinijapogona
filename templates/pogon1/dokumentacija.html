@@ -9,9 +9,13 @@
 <div class="content-fix-padding">
   <div class="container-fluid">
     <div class="row">
-      <h3>PROJEKT</h3>
-      <h4 class="fix">Osnovne cjeline od kojih se sastoji projekt su mbed MCU razvojna pločica, RPi model 3 i Adafruit Motor SHield  v1.0. Ideja je upravljanje na daljinu sa pojedinim dijelovima "Linije pogona" i unos parametara ručno, npr. PWM širina i period. Središnji dio projekta je RPi model 3 na kojemu se nalazi Django - Python Web Framework, poslužitelj web stranice i Upravljačka stranica iz koje se može ručno upravljati linijom pogona. Linijom se upravlja pritiskom na nekoliko tipki iz Upravljačke stranice a čija je interakcija popraćena sa signalnim lampicama na Upravljačkoj stranici. Tipke kreiraju "Http GET request" do servera, a zatim server odgovara upravljačkim signalima prema RPI.GPIO I2C vezom sa mbed MCU razvojnom pločicom koja izravno upravlja izvršnim elementima linije pogona uz pomoć Adafruit MotorShield drivera kao što su DC motor, steper koračni motor, steper unipolarni motor i aktiviranje video streama, uslikavanje radnog dokumenta te čitanje šifre radnog naloga nakon toga i pokretanje ciklusa linije iz memorije mbed MCU razvojne pločice.</h4>
-      <div class="col-md-8 placeholder">
+      <h3>PROJEKT LINIJA POGONA</h3>
+      <h4 class="fix">Osnovne cjeline od kojih se sastoji projekt su mbed MCU razvojna pločica, RPi model 3 i Arduino. Projekt ostvaruje upravljanje lokalno ili na daljinu sa sušarom, lancima. Središnji dio projekta je RPi model 3 na kojemu je postavljen Django web okruženje(web poslužitelj) i upravljačka stranica pomoću koje se može ručno upravljati linijom pogona. Linijom se upravlja pritiskom na nekoliko tipki na upravljačkoj stranicic a čija je interakcija popraćena sa statusnim signalima na upravljačkoj stranici.</h4>
+      <h4 class="fix">Tipkala kreiraju "Http GET request" zbog kojih server odgovara upravljačkim signalima sa izvršnim elementima linije pogona.</h4>
+      <p class="fix">Tipkalima su dodijeljene prikladne JavaScript funkcije:</p>
+      <p class="fix">Kamera: stop_record() | record() | take_photo()</p>
+      <p class="fix">Aktuator: fwd() | bwd() | lijevo() | desno() | pauziraj() | stop_linija()</p>
+      <div class="col-md-12 placeholder">
         <div class="img-responsive">{% svg 'PROJEKT' %}</div>
       </div>
     </div>
@@ -22,10 +26,14 @@
   <div class="container-fluid">
     <div class="row">
       <h3>UPRAVLJAČKA PLOČA</h3>
-      <h4 class="fix">Izgled upravljačke ploče kojom se upravlja linijom pogona</h4>
-      <div class="col-md-10 placeholder">
-        <div id="signali-stol" class="img-responsive">{% svg 'UPRAVLJACKAPLOCA' %}</div>
+      <div class="col-md-12 placeholder">
+        <img class="img-responsive" src="{% static "svg/upravljackaploca.PNG" %}" />
       </div>
+      <h4 class="fix">Kreirana upravljačka ploča za pogon1 i upravljanje vagonima, sušarom, lancima</h4>
+      <p class="fix">Django web okruženje zasniva se na uređivanju metoda u svega tri osnovna modela Models.py, Views.py i Template.</p>
+      <p class="fix">->Model Models.py: kreira nove modele za pohranu u bazi podataka</p>
+      <p class="fix">->Model Views.py: Obrađuje zahtjeve klijenta i prikazuje Template</p>
+      <p class="fix">->Model Template: Za izradu stranice upravljačka ploča</p>
     </div>
   </div>
 </div><!-- /#content-fix-padding -->
@@ -33,8 +41,11 @@
 <div class="content-fix-padding">
   <div class="container-fluid">
     <div class="row">
-      <h4 class="fix">Pritiskom na tipke aktivira se JavaScript Http GET zahtjev u formatu "?cmd=stop"</h4>
-      <h4 class="fix">Django sustav obradi zahtjev na način da će View.py primiti Http zahtjev i raščlaniti ga u cilju da otkrije "cmd", a prema njegovom sadržaju će se izvršiti naredbe upravljanja linijom pogona. Pritiskom na tipku stop View.py će primiti "?cmd=stop" a izvršiti stop svih motora linije pogona, tj. poslati će na mbed zahtjev za zaustavljanjem svih.</h4>
+      <h4 class="fix">Django web okruženje obrađuje zahtjev prema slijedećoj pojednostavljenoj shemi:</h4>
+      <div class="col-md-12 placeholder">
+        <div id="signali-stol" class="img-responsive">{% svg 'DJANGOMODEL' %}</div>
+      </div>
+      <h4 class="fix">Tipkalima su pridružene funkcije za upravljanje. Pritiskom na tipkala aktivira se GET zahtjev u smjeru klijent->server, oblika "?cmd=stop"</h4>
     </div>
   </div>
 </div><!-- /#content-fix-padding -->
@@ -42,8 +53,8 @@
 <div class="content-fix-padding">
   <div class="container-fluid">
     <div class="row">
-      <h3>STRUKTURA DATOTEKA</h3>
-      <div class="col-md-3 col-xs-6 placeholder">
+      <h3>STRUKTURA DATOTEKA - RPi3</h3>
+      <div class="col-md-8 col-xs-10 placeholder">
         <div class="img-responsive">{% svg 'STRUKTURADATOTEKA' %}</div>
       </div>
     </div>
@@ -63,11 +74,33 @@
 <div class="content-fix-padding">
   <div class="container-fluid">
     <div class="row">
-      <h3>INSTALACIJA</h3>
-      <h4 class="fix">Dostupna je instalacijska skripta "postavi.h". Za detalje pročitati <a href="https://github.com/mariomitte/final-linija" target="_blank">README.md</a></h4>
-      <div class="col-md-10 placeholder">
-        <div id="signali-stol" class="img-responsive">{% svg 'INSTALACIJA' %}</div>
+      <h3>ESP8266 serializer - za dohvaćanje tokena</h3>
+      <div class="col-md-12 placeholder">
+        <img class="img-responsive" src="{% static "svg/primio.png" %}" />
       </div>
+      <h4 class="fix">Ovime se ostvaruje upravljanje aktuatorima preko ESP8266 modula u jednom smjeru.</h4>
+      <p class="fix">ESP modul u jednakim vremenskim intervalima dohvaća status linije pogona za što je kreiran Django REST okruženje - API za dohvaćanje statusa linije pogona pomoću drugih servisa kao što je Telegram</p>
+    </div>
+  </div>
+</div><!-- /#content-fix-padding -->
+
+<div class="content-fix-padding">
+  <div class="container-fluid">
+    <div class="row">
+      <h3>INSTALACIJA</h3>
+      <h4 class="fix">Django projekt dostupan na slijedećem github linku <a href="https://github.com/mariomitte/rpilinijapogona" target="_blank">rpilinijapogona</a></h4>
+      <div class="col-md-12 placeholder">
+        <img class="img-responsive" src="{% static "svg/instalacija.png" %}" />
+      </div>
+    </div>
+  </div>
+</div><!-- /#content-fix-padding -->
+
+<div class="content-fix-padding">
+  <div class="container-fluid">
+    <div class="row">
+      <h3>GITHUB WIKI STRANICE</h3>
+      <h4 class="fix">Stranice dostupne na <a href="https://github.com/mariomitte/rpilinijapogona/wiki" target="_blank">wiki</a></h4>
     </div>
   </div>
 </div><!-- /#content-fix-padding -->
