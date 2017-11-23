@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'MojTajniKljuc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # pluginovi
     'rest_framework',
     'svg',
+    'django_telegrambot',
 
     # lokalne aplikacije
     'pogon1',
@@ -116,16 +117,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # Telegram Bot API
 DJANGO_TELEGRAMBOT = {
 
-    'MODE' : 'WEBHOOK', #(Optional [str]) # The default value is WEBHOOK,
+    'MODE' : 'POLLING', #(Optional [str]) # The default value is WEBHOOK,
                         # otherwise you may use 'POLLING'
                         # NB: if use polling you must provide to run
                         # a management command that starts a worker
 
-    'WEBHOOK_SITE' : ' http://192.168.8.100:8000/',
-    'WEBHOOK_PREFIX' : '/pogon1', # (Optional[str]) # If this value is specified,
+    'WEBHOOK_SITE' : 'https://rpilinijapogona.ddns.net/',
+    'WEBHOOK_PREFIX' : '/bot', # (Optional[str]) # If this value is specified,
                                   # a prefix is added to webhook url
 
-    'WEBHOOK_CERTIFICATE' : 'ssl_certificate /etc/letsencrypt/live/rpilinijapogona.ddns.net/fullchain.pem', # If your site use self-signed
+    #'WEBHOOK_CERTIFICATE' : 'ssl_certificate /home/linijapogona/rpilinijapogona/certs/privkey.pem', # If your site use self-signed
                          #certificate, must be set with location of your public key
                          #certificate.(More info at https://core.telegram.org/bots/self-signed )
 

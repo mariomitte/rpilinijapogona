@@ -1,6 +1,12 @@
 import socket
 import time
 import picamera
+import sys
+sys.path.append('../')
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "linijapogona.settings")
+import django
+django.setup()
 from django.conf import settings
 
 class CameraNetwork:

@@ -7,6 +7,7 @@ bus = smbus.SMBus(1)
 address = 0x04
 
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 GPIO.setup(12, GPIO.OUT)
 GPIO.setup(13, GPIO.OUT)
 GPIO.setup(21, GPIO.OUT)

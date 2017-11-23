@@ -6,7 +6,7 @@ class UpravljanjeSerializer(serializers.ModelSerializer):
     """ Serializer za operatera """
     class Meta:
         model = Upravljanje
-        fields = ('korisnik', 'title', 'content', 'image')
+        fields = ('korisnik', 'title', 'kod', 'model', 'extra')
 
 
 class CvorSerializer(serializers.ModelSerializer):

@@ -30,6 +30,9 @@ urlpatterns = [
     # /api/
     url(r'^api/', include('pogon1.api.urls')),
 
+    # telegrambot
+    url(r'^', include('django_telegrambot.urls')),
+
     # /pogon1/
     url(r'^pogon1/', include('pogon1.urls', namespace='pogon1')),
     
