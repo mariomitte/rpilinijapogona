@@ -3,7 +3,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import Permission, User
 from django.db import models
 from django.core.urlresolvers import reverse
-from pogon1.camera_network import *
+from ../kamera.kamera_stream import *
 
 #picamera
 camera = CameraNetwork()
