@@ -1,18 +1,17 @@
-# client side
 import time
-#import smbus
-#import RPi.GPIO as GPIO
+import smbus
+import RPi.GPIO as GPIO
 
-# bus za i2c
-#bus = smbus.SMBus(1)
-#address = 0x04
+# I2C
+bus = smbus.SMBus(1)
+address = 0x04
 
-#GPIO.setmode(GPIO.BCM)
-#GPIO.setup(12, GPIO.OUT)
-#GPIO.setup(13, GPIO.OUT)
-#GPIO.setup(21, GPIO.OUT)
-#pwm_out1=GPIO.PWM(12,50)
-#pwm_out2=GPIO.PWM(13,50)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(12, GPIO.OUT)
+GPIO.setup(13, GPIO.OUT)
+GPIO.setup(21, GPIO.OUT)
+pwm_out1=GPIO.PWM(12,50)
+pwm_out2=GPIO.PWM(13,50)
 
 motor_a = 8.0
 motor_b = 7.0
@@ -41,53 +40,35 @@ def motor_control(direction):
     global pwm_out2
 
     if (direction == "lijevo"):
-        pass
-        #value = 1
-        #bus.write_byte(address, value)
-        #GPIO.setmode(GPIO.BCM)
-        #GPIO.setup(12, GPIO.OUT)
-        #GPIO.setup(13, GPIO.OUT)
-        #pwm_out1=GPIO.PWM(12,50)
-        #pwm_out2=GPIO.PWM(13,50)
-        #pwm_out1.start(motor_b)
-        #pwm_out2.start(motor_b)
+        value = 1
+        bus.write_byte(address, value)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(12, GPIO.OUT)
+        GPIO.setup(13, GPIO.OUT)
+        pwm_out1=GPIO.PWM(12,50)
+        pwm_out2=GPIO.PWM(13,50)
+        pwm_out1.start(motor_b)
+        pwm_out2.start(motor_b)
 
     if (direction == "desno"):
-        pass
-        #value = 2
-        #bus.write_byte(address, value)
-        #GPIO.setmode(GPIO.BCM)
-        #GPIO.setup(12, GPIO.OUT)
-        #GPIO.setup(13, GPIO.OUT)
-        #pwm_out1=GPIO.PWM(12,50)
-        #pwm_out2=GPIO.PWM(13,50)
-        #pwm_out1.start(motor_a)
-        #pwm_out2.start(motor_a)
+        value = 2
+        bus.write_byte(address, value)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(12, GPIO.OUT)
+        GPIO.setup(13, GPIO.OUT)
+        pwm_out1=GPIO.PWM(12,50)
+        pwm_out2=GPIO.PWM(13,50)
+        pwm_out1.start(motor_a)
+        pwm_out2.start(motor_a)
 
     if (direction == "pauziraj"):
-        pass
-        #value = 8
-        #bus.write_byte(address, value)
-        #pwm_out1.stop()
-        #pwm_out2.stop()
-        #GPIO.cleanup()
+        value = 8
+        bus.write_byte(address, value)
+        pwm_out1.stop()
+        pwm_out2.stop()
+        GPIO.cleanup()
 
     if (direction == "stop"):
-        pass
-        #value = 9
-        #bus.write_byte(address, value)
-        # koji pin za
-        #GPIO.cleanup()
-
-#def motor_select(version):
-#  if (version == "motor-stol"):
-#    value = 3
-#    bus.write_byte(address, value)
-#
-#  if (version == "motor-goredolje"):
-#    value = 4
-#    bus.write_byte(address, value)
-#
-#  if (version == "motor-obrada"):
-#    value = 5
-#    bus.write_byte(address, value)
+        value = 9
+        bus.write_byte(address, value)
+        GPIO.cleanup()
