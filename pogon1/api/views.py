@@ -60,11 +60,22 @@ class PogonApiView(APIView):
 
         return Response({'method':'delete'})
 
-class CvorViewSet(viewsets.ModelViewSet):
+class UpravljanjeViewSet(viewsets.ModelViewSet):
     queryset = Upravljanje.objects.all()
-    serializer_class = CvorSerializer
+    serializer_class = UpravljanjeSerializer
     permission_classes = (IsAuthenticated,)
 
-    def partial_update(self, request, *args, **kwargs):
-        serializer = CvorSerializer(queryset, data=request.data, partial=True)
-        return serializer
+    def get(self, request, format=None):
+        content = {
+            'status': 'request was permitted'
+        }
+        return Response(content)
+
+class CvorViewSet(generics.ListAPIView):
+    serializer_class = CvorSerializer
+    permission_classes = (AllowAny,)
+    def get_queryset(self):
+        queryset = Upravljanje.objects.all()
+        kod_id = self.request.query_params.get('kod', None)
+        queryset = queryset.filter(kod='pogon1')
+        return queryset
