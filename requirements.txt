@@ -9,3 +9,4 @@ picamera
 gunicorn
 Pillow
 requests
+gunicorn

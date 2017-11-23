@@ -30,6 +30,11 @@ sudo apt-get install -y python3-pip
 sudo apt-get install -y openssh-server
 sudo apt-get install -y python3-rpi.gpio
 sudo apt-get install -y python3-picamera
+sudo apt-get install -y postgresql 
+sudo apt-get install -y postgresql-contrib
+sudo apt-get install -y libpq-dev 
+sudo apt-get install -y python3-dev
+sudo apt-get install -y supervisor
 
 echo "\n"
 echo "Instaliraj potrebne biblioteke za rad sa Django-om"
