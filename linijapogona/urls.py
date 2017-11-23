@@ -17,9 +17,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url, include
 from django.contrib import admin
-from djgeojson.views import GeoJSONLayerView
-
-from karta.models import HQ
 
 urlpatterns = [
     # /admin/
@@ -30,10 +27,12 @@ urlpatterns = [
 
     # /pogon1/
     url(r'^pogon1/', include('pogon1.urls', namespace='pogon1')),
-
-    # /karta/
-    url(r'^karta/', include('karta.urls')),
-    url(r'^data.geojson$', GeoJSONLayerView.as_view(model=HQ, properties=('title', 'description', 'picture_url')), name='data')
+    
+    # /pogon2/
+    #url(r'^pogon2/', include('pogon2.urls', namespace='pogon2')),
+    
+    # /pogon3/
+    #url(r'^pogon3/', include('pogon3.urls', namespace='pogon3')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
