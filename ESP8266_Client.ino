@@ -1,8 +1,8 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
-const char* ssid = "BAN-SPOT";
-const char* password = "home0108";
+const char* ssid = "xxxx";
+const char* password = "xxxx";
 
 void setup() {
   //pinMode(poz, INPUT);
@@ -17,8 +17,8 @@ void loop() {
   if(WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     //Specify request destination
-    http.begin("https://192.168.8.102/api/cvor/");
-    http.setAuthorization("mitte", "mitte0108");
+    http.begin("https://ip_adresa/api/cvor/");
+    http.setAuthorization("linijapogona", "linijapogona");
     int httpCode = http.GET();
     //Send the request
     if(httpCode > 0) {
