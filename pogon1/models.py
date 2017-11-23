@@ -38,11 +38,10 @@ class Upravljanje(models.Model):
         return reverse('pogon1:detail', kwargs={'id':self.id})
 
     def check_exists_device(kod_id):
-        #If there is no device code creates a new one.
-        #With this you have saved the new devices and then assign them to your user.
+        # Izradi kod ukoliko ne postoji
 
         if not Cvor.objects.filter(kod=kod_id):
-            kreirao = User.objects.filter(username="admin").first()
+            kreirao = User.objects.filter(username="linijapogona").first()
             kod_create = Cvor.objects.create(user=kreirao, kod=kod_id)
 
     class Meta:
