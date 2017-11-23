@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1hrie2c@pcmo)ba+$r!rfw!0!l1w$001e^sytod7$yxop$uxi='
+SECRET_KEY = 'MojTajniKljuc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -43,13 +43,9 @@ INSTALLED_APPS = [
     # pluginovi
     'rest_framework',
     'svg',
-    'leaflet',
-    'djgeojson',
-    'easy_pdf',
 
     # lokalne aplikacije
     'pogon1',
-    'karta',
 ]
 
 MIDDLEWARE = [
@@ -90,11 +86,11 @@ WSGI_APPLICATION = 'linijapogona.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'django_db',
-        'USER': 'db_user',
-        'PASSWORD': 'dbuser',
+        'NAME': 'linijapogona_db',
+        'USER': 'linijapogona',
+        'PASSWORD': 'linijapogona',
         'HOST': 'localhost',
-        'PORT': '',                      # Set to empty string for default.
+        'PORT': '',                      # default.
     }
 }
 
@@ -134,25 +130,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     #'/var/www/static/',
 ]
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+# /home/pi/static/
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
+# /home/pi/media/
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
 
 #CORS_REPLACE_HTTPS_REFERER = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-LEAFLET_CONFIG = {
-    'TILES': 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=471763ba90fd4ee1888b6b17f313ff02',
-    'DEFAULT_CENTER': (42.6, 17.5),
-    'DEFAULT_ZOOM': 10,
-    'MIN_ZOOM': 3,
-    'MAX_ZOOM': 18,
-    'SCALE': 'both',
-}
