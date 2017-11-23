@@ -16,10 +16,10 @@ echo "\n"
 echo "Preuzmi git\n"
 sudo apt-get -y install git
 
-echo "\n"
-echo "Preuzmi projekt linijapogona\n"
-cd /home/pi/
-git clone https://github.com/mariomitte/rpilinijapogona.git
+#echo "\n"
+#echo "Preuzmi projekt linijapogona\n"
+#cd /home/pi/
+#git clone https://github.com/mariomitte/rpilinijapogona.git
 
 echo "\n"
 echo "Preuzmi Python biblioteke\n"
