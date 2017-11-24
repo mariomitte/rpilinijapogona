@@ -16,10 +16,10 @@ echo "\n"
 echo "Preuzmi git\n"
 sudo apt-get -y install git
 
-#echo "\n"
-#echo "Preuzmi projekt linijapogona\n"
-#cd /home/pi/
-#git clone https://github.com/mariomitte/rpilinijapogona.git
+echo "\n"
+echo "Preuzmi projekt linijapogona\n"
+cd /home/pi/
+git clone https://github.com/mariomitte/rpilinijapogona.git
 
 echo "\n"
 echo "Preuzmi Python biblioteke\n"
@@ -36,10 +36,21 @@ sudo apt-get install -y libpq-dev
 sudo apt-get install -y python3-dev
 sudo apt-get install -y supervisor
 sudo apt-get install -y libjpeg-dev
+sudo apt-get install -y virtualenv
+
+echo "\n"
+echo "Instaliraj python3 venvpy3"
+virtualenv -p python3 --system-site-packages venvp3
+
+echo "\n"
+echo "Aktiviraj virtualenv venvpy3"
+source venvpy3/bin/activate
 
 echo "\n"
 echo "Instaliraj potrebne biblioteke za rad sa Django-om"
-sudo pip3 install -r requirements.txt
+cd rpilinijapogona/
+pip install -r requirements.txt
 
 echo "\n"
+deactivate
 echo "Kraj skripte."
