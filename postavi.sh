@@ -35,10 +35,10 @@ sudo apt-get install -y postgresql-contrib
 sudo apt-get install -y libpq-dev 
 sudo apt-get install -y python3-dev
 sudo apt-get install -y supervisor
+sudo apt-get install -y libjpeg-dev
 
 echo "\n"
 echo "Instaliraj potrebne biblioteke za rad sa Django-om"
-cd linijapogona
 sudo pip3 install -r requirements.txt
 
 echo "\n"

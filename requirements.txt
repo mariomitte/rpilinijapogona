@@ -2,11 +2,9 @@ Django
 django-inline-svg
 djangorestframework
 telepot
-django-telegrambot
 pytelegrambotapi
 psycopg2
 picamera
 gunicorn
 Pillow
 requests
-gunicorn
