@@ -39,18 +39,9 @@ sudo apt-get install -y libjpeg-dev
 sudo apt-get install -y virtualenv
 
 echo "\n"
-echo "Instaliraj python3 venvpy3"
-virtualenv -p python3 --system-site-packages venvp3
-
-echo "\n"
-echo "Aktiviraj virtualenv venvpy3"
-source venvpy3/bin/activate
-
-echo "\n"
 echo "Instaliraj potrebne biblioteke za rad sa Django-om"
 cd rpilinijapogona/
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
 echo "\n"
-deactivate
 echo "Kraj skripte."

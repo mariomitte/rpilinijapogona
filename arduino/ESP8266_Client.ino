@@ -17,7 +17,7 @@ void loop() {
   if(WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
     //Specify request destination
-    http.begin("https://ip_adresa/api/cvor/");
+    http.begin("https://ip_adresa:port/api/cvor/");
     http.setAuthorization("linijapogona", "linijapogona");
     int httpCode = http.GET();
     //Send the request

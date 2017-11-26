@@ -1,15 +1,23 @@
+import sys
+sys.path.append('../')
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "linijapogona.settings")
+import django
+django.setup()
 import telebot
 import time
 from telebot import types
-
-# Telegram token - Android, PC
-TOKEN_BOT = '462144950:AAFBwrFtFR1tx70E5hzIVkjOxucuLNX3mug'
+from pogon1.models import Upravljanje, camera
+from pogon1.upravljanje import *
+from linijapogona.settings_local import TOKEN_BOT
 
 commands = {
               'start': 'Provjeri status operatera',
               'operater': 'Daje informaciju o glavnim naredbama linije pogona',
               'kamera': 'Naredbe za upravljanje kamere',
               'linija': 'Naredbe za upravljanje linije',
+              'model': 'Modeli kojima se može upravljati',
+              'rfid': 'Registrani korisnik',
 }
 
 knownUsers = ['linijapogona']
@@ -46,48 +54,56 @@ def command_help(m):
 @bot.message_handler(commands=['video'])
 def command_video(m):
     tip = m.chat.id
+    camera.record()
     bot.send_message(tip, "Kamera pokreni video")
 
 # kamera naredba stop
 @bot.message_handler(commands=['stopvid'])
 def command_stop_video(m):
     tip = m.chat.id
+    camera.stop()
     bot.send_message(tip, "Kamera zaustavi video")
 
 # kamera naredba fotografija
 @bot.message_handler(commands=['fotografija'])
 def command_fotografija(m):
     tip = m.chat.id
+    camera.photo()
     bot.send_message(tip, "Pohrani fotografiju")
 
 # linija naredba brze
 @bot.message_handler(commands=['brze'])
 def command_brze(m):
     tip = m.chat.id
+    speed_control('brze')
     bot.send_message(tip, "Linija brzina BRZE")
 
 # linija naredba sporije
 @bot.message_handler(commands=['sporije'])
 def command_sporije(m):
     tip = m.chat.id
+    speed_control('sporije')
     bot.send_message(tip, "Linija brzina SPORIJE")
 
 # linija naredba lijevo
 @bot.message_handler(commands=['lijevo'])
 def command_lijevo(m):
     tip = m.chat.id
+    motor_control('lijevo')
     bot.send_message(tip, "Lija smjer LIJEVO")
 
 # linija naredba desno
 @bot.message_handler(commands=['desno'])
 def command_desno(m):
     tip = m.chat.id
+    motor_control('desno')
     bot.send_message(tip, "Linija smjer DESNO")
 
 # linija naredba pauziraj
 @bot.message_handler(commands=['pauziraj'])
 def command_pauziraj(m):
     tip = m.chat.id
+    motor_control('pauziraj')
     bot.send_message(tip, "Linija status pauziraj")
 
 # kamera tipkovnica
@@ -117,5 +133,19 @@ def command_linija(m):
     itembtn9 = types.KeyboardButton(' ')
     markup.add(itembtn1, itembtn2, itembtn3, itembtn4, itembtn5, itembtn6, itembtn7, itembtn8, itembtn9)
     bot.send_message(tip, "Upravljanje linijom:", reply_markup=markup)
+
+@bot.message_handler(commands=['model'])
+def command_model(m):
+    tip = m.chat.id
+    queryset = Upravljanje.objects.all()
+    for key in queryset:
+        bot.send_message(tip, key.kod)
+
+# linija naredba lijevo
+@bot.message_handler(commands=['rfid'])
+def command_lijevo(m):
+    tip = m.chat.id
+    text = readNumber()
+    bot.send_message(tip, text)
 
 bot.polling(none_stop=True)

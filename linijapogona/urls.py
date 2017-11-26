@@ -20,25 +20,22 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    
+
     # /welcome/
     url(r'^$', TemplateView.as_view(template_name='welcome.html'), name='welcome'),
-    
+
     # /admin/
     url(r'^admin/', admin.site.urls),
 
     # /api/
     url(r'^api/', include('pogon1.api.urls')),
 
-    # telegrambot
-    url(r'^', include('django_telegrambot.urls')),
-
     # /pogon1/
     url(r'^pogon1/', include('pogon1.urls', namespace='pogon1')),
-    
+
     # /pogon2/
     #url(r'^pogon2/', include('pogon2.urls', namespace='pogon2')),
-    
+
     # /pogon3/
     #url(r'^pogon3/', include('pogon3.urls', namespace='pogon3')),
 

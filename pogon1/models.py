@@ -32,7 +32,7 @@ class Upravljanje(models.Model):
     extra = models.CharField(max_length=500)
 
     def __str__(self):
-        'Operater {}: {} - {}'.format(self.korisnik, self.title, self.user_in)
+        return 'Operater {}: {} - {}'.format(self.korisnik, self.title, self.kod)
 
     def get_absolute_url(self):
         return reverse('pogon1:detail', kwargs={'id':self.id})

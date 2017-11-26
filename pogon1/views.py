@@ -29,9 +29,6 @@ def upravljanje_create(request):
             messages.success(request, 'Uspjesno kreirano')
             return HttpResponseRedirect(instance.get_absolute_url())
 
-            # if request.method == 'POST':
-            #     print(request.POST.get('title'))
-            #     print(request.POST.get('content'))
         context = {
             'form':form,
         }
@@ -130,13 +127,12 @@ def pogon(request):
                     camera.photo()
 
                 #Upravljanje saRPi3 GPIO pinovima
-                #motor_control(cmd)
+                motor_control(cmd)
 
-                #zivcira me ovo rjesenje
-                # for item in queryset.model:
-                #     model = item.model
-                #     print(model)
+                if (cmd == 'brze') or (cmd =='sporije'):
+                    speed_control(cmd)
 
+                # Kreiranje API priključka za pogon1
                 Upravljanje.objects.filter(kod='pogon1').update(extra=cmd)
 
 
