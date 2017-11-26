@@ -17,7 +17,6 @@ commands = {
               'kamera': 'Naredbe za upravljanje kamere',
               'linija': 'Naredbe za upravljanje linije',
               'model': 'Modeli kojima se može upravljati',
-              'rfid': 'Registrani korisnik',
 }
 
 knownUsers = ['linijapogona']
@@ -140,12 +139,4 @@ def command_model(m):
     queryset = Upravljanje.objects.all()
     for key in queryset:
         bot.send_message(tip, key.kod)
-
-# linija naredba lijevo
-@bot.message_handler(commands=['rfid'])
-def command_lijevo(m):
-    tip = m.chat.id
-    text = readNumber()
-    bot.send_message(tip, text)
-
-bot.polling(none_stop=True)
+        
