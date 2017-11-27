@@ -1,3 +1,6 @@
+# Kreirano korištenjem telepot dokumentacije
+# uređeno za zahtjeve projekta: linija pogona
+# Metoda: WEBHOOK ili POOLING
 import sys
 sys.path.append('../')
 import os
@@ -11,6 +14,7 @@ from pogon1.models import Upravljanje, camera
 from pogon1.upravljanje import *
 from linijapogona.settings_local import TOKEN_BOT
 
+# Naredbe za rad sa linijom pogona
 commands = {
               'start': 'Provjeri status operatera',
               'operater': 'Daje informaciju o glavnim naredbama linije pogona',
@@ -22,6 +26,7 @@ commands = {
 knownUsers = ['linijapogona']
 userStep = {}
 
+# Za povezivanje sa Telegram API
 bot = telebot.TeleBot(TOKEN_BOT)
 
 # prva naredba /start
@@ -139,4 +144,3 @@ def command_model(m):
     queryset = Upravljanje.objects.all()
     for key in queryset:
         bot.send_message(tip, key.kod)
-        

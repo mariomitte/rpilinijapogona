@@ -1,13 +1,8 @@
-
-
 /*
- *
- * All the resources for this project: http://randomnerdtutorials.com/
- * Modified by Rui Santos
- *
- * Created by FILIPEFLOP
- *
- */
+  Kreirao FILIPEFLOP
+
+  Uredio mariomitte za zahtjeve projekta: linija pogona
+*/
 
 #include <SPI.h>
 #include <MFRC522.h>
@@ -23,6 +18,7 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance.
 LiquidCrystal lcd(6, 7, 2, 3, 4, 5);   // LCD 16x2
 
 int LED = 8;
+//int tag_id[4];
 
 /**
  * RPi3 upravlja Arduinom, sa I2C
@@ -64,6 +60,16 @@ void cekam(String data1, String data2) {
   lcd.print(data2);
 }
 
+/**
+ * Pošalji UID kartice liniji pogona
+ */
+// void sendData(){
+//   for (byte i = 0; i < 5; i++)
+//   {
+//     Wire.write(tag_id[i]);
+//   }
+// }
+
 void setup()
 {
   pinMode(LED, OUTPUT);
@@ -71,9 +77,10 @@ void setup()
     while (!Serial);                      // Ako nema veze, miruj
     SPI.begin();                          // MISO-MOSI
     lcd.begin(16, 2);                     // LCD 16x2
-    mfrc522.PCD_Init();                    // MFRC522, čitač kartica
+    mfrc522.PCD_Init();                   // MFRC522, čitač kartica
     Wire.begin(SLAVE_ADDRESS);            // Adresa radnika
     Wire.onReceive(receiveEvent);         // Primaj naredbe linije
+    //Wire.onRequest(sendData);           // Pošalji UID liniji
 
     Serial.println();
     Serial.println("Postavljanje...");
@@ -105,6 +112,7 @@ void loop()
      content.concat(String(mfrc522.uid.uidByte[i], HEX));
   }
   Serial.println();
+  // Usporedi podatke sa kartice
   Serial.print("Message : ");
   content.toUpperCase();
   if(content.substring(1) == "D7 E7 A2 21") {

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     # pluginovi
     'rest_framework',
     'svg',
-    'sslserver',
+    'sslserver', # za brzo testrianje sa https
 
     # lokalne aplikacije
     'pogon1',

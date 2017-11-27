@@ -8,7 +8,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from pogon1.api import serializers
 
-# Django rest_framework API response
+# Osnovni tutorial za kreiranje API pogleda
 class PogonApiView(APIView):
     """Test API View."""
 
@@ -31,17 +31,17 @@ class PogonApiView(APIView):
     def post(self, request):
         """Create a hello message with our name."""
 
-        serializer = serializers.UpravljanjeSerializer(data=request.data) # što god da request ima pošalji serializer objektu
+        serializer = serializers.UpravljanjeSerializer(data=request.data)
 
         # provjeri da serializer ima ispravni data
         if serializer.is_valid():
             name = serializer.data.get('name')
-            message = 'Hello {0}'.format(name) # {0, 1, 2} to je red po kojemu želim izlistati message koji je upisao korisnik
+            message = 'Hello {0}'.format(name)
             return Response({'message': message})
 
         else:
             return Response(
-                serializer.errors, status=status.HTTP_400_BAD_REQUEST) # sadrži lista grešaka koji nastanu
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # Http response
     def put (self, request, pk=None):
@@ -60,6 +60,8 @@ class PogonApiView(APIView):
 
         return Response({'method':'delete'})
 
+# API metoda linije pogona
+# Podržava: POST, GET, PUT, PATCH, DELETE
 class UpravljanjeViewSet(viewsets.ModelViewSet):
     queryset = Upravljanje.objects.all()
     serializer_class = UpravljanjeSerializer
@@ -71,11 +73,15 @@ class UpravljanjeViewSet(viewsets.ModelViewSet):
         }
         return Response(content)
 
+# API metoda linije pogona za preuzimanje statusa
+# Podržava: GET
 class CvorViewSet(generics.ListAPIView):
     serializer_class = CvorSerializer
     permission_classes = (AllowAny,)
     def get_queryset(self):
         queryset = Upravljanje.objects.all()
         kod_id = self.request.query_params.get('kod', None)
+        # Ukoliko postoji aplikacija za pogon2, postaviti kod='pogon2'
+        # Ukoliko postoji aplikacija za pogon3, postaviti kod='pogon3'
         queryset = queryset.filter(kod='pogon1')
         return queryset

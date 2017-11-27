@@ -8,3 +8,4 @@ picamera
 gunicorn
 Pillow
 requests
+django-sslserver

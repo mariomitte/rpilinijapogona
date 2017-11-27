@@ -1,0 +1,57 @@
+************************ INFO ************************
+Struktura RPI3 direktorija, kreirano za korisnik: linijapogona
+
+************************ ROOT ************************
+/home/pi/
+    /certs/
+        fullchain.pem
+        privkey.pem
+    /letsencrypt/
+    /logs/
+        gunicorn_supervisor_linijapogona.log
+        gunicorn_supervisor_telegrambot.log
+    /media/
+        /camera/
+        /linijapogona/
+    /rpilinijapogona/
+    /static/
+    gunicorn_linijapogona.bash
+    gunicorn_telegrambot.bash
+
+******************** LINIJAPOGONA ********************
+/home/pi/rpilinijapogona/
+    /arduino/
+        ESP8266_Client.ino
+        RFID_Client.ino
+    /kamera/
+        kamera_stream.py
+    /linijapogona/
+        settings_local.py
+        settings.py
+        urls.py
+        wsgi.py
+    /mbed/
+        Serial_Parser.cpp
+    /pogon1/
+        /api/
+            __init__.py
+            models.py
+            serializers.py
+            urls.py
+            views.py
+        __init__.py
+        admin.py
+        apps.py
+        forms.py
+        models.py
+        upravljanje.py
+        urls.py
+        views.py
+    /static/
+    /telegram/
+        telegrambot.py
+    /templates/
+        /pogon1/
+            /min/
+            .. .html
+        welcome.html

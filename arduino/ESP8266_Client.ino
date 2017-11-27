@@ -1,3 +1,15 @@
+/*
+  Primjer http povezivanja ESP07 WiFi sa linijom pogona
+  Dohvaća podatke sa API adrese linije pogona,
+  kreirane pomoću Django REST okruženja.
+
+  Aplikacija radi u jednom smjeru
+  Šalje GET zahtjev
+
+  Kreirao mariomitte korištenjem osnovnih primjera ESP8266 biblioteke
+  Za zahtjeve projekta: linija pogona
+*/
+
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
@@ -5,8 +17,7 @@ const char* ssid = "xxxx";
 const char* password = "xxxx";
 
 void setup() {
-  //pinMode(poz, INPUT);
-  Serial.begin(9600);
+  Serial.begin(115200);
   WiFi.begin(ssid, password);
   while(WiFi.status() != WL_CONNECTED) {
     delay(1000);
@@ -16,18 +27,18 @@ void setup() {
 void loop() {
   if(WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-    //Specify request destination
-    http.begin("https://ip_adresa:port/api/cvor/");
+    // API adresa linije pogona: ostaje isti za pogon2, pogon3
+    http.begin("http://<ip_adresa>:<port>/api/cvor/");
     http.setAuthorization("linijapogona", "linijapogona");
     int httpCode = http.GET();
-    //Send the request
+    // Pošalji preuzete podatke mikrokontroleru: LPC1768
     if(httpCode > 0) {
       String payload = http.getString();
       Serial.println(payload);
     }
+    // Završi prijenos
     http.end();
   }
-  //Send a request every x seconds
-  delay(1800);
-
+  // Svakih x vremena zatraži GET zahtjev
+  delay(7500);
 }

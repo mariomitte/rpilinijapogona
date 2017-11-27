@@ -5,14 +5,14 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from kamera.kamera_stream import *
 
-#picamera
+# Kamera
 camera = CameraNetwork()
 
-# media/<user>
+# Kreiraj direktorij korisnika za pohranu, media/<user>
 def upload_location(instance, filename):
     return '%s/%s' %(instance.korisnik, filename)
 
-# modeli
+# Modeli linije pogona
 class Upravljanje(models.Model):
     # korisnik
     korisnik = models.ForeignKey(User, default=1)
